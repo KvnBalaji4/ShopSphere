@@ -1,0 +1,56 @@
+package com.balaji.ecommerce.controller;
+
+import com.balaji.ecommerce.dto.LoginRequest;
+import com.balaji.ecommerce.dto.LoginResponse;
+import com.balaji.ecommerce.model.User;
+import com.balaji.ecommerce.security.TokenUtil;
+import com.balaji.ecommerce.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final UserService userService;
+    private final TokenUtil tokenUtil;
+
+    public AuthController(UserService userService, TokenUtil tokenUtil) {
+        this.userService = userService;
+        this.tokenUtil = tokenUtil;
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestBody RegisterRequest request) {
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // TEMPORARY: allow ADMIN
+        user.setRole(
+            request.getRole() != null ? request.getRole() : "USER"
+        );
+
+        return userRepository.save(user);
+    }
+
+
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+
+        User user = userService.authenticate(
+                request.getEmail(),
+                request.getPassword()
+        );
+
+        String token = tokenUtil.generateToken(
+                user.getEmail(),
+                user.getRole()
+        );
+
+
+        return new LoginResponse(token);
+    }
+
+}

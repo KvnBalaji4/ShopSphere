@@ -1,0 +1,32 @@
+package category;
+
+
+import com.balaji.ecommerce.dto.CategoryRequest;
+import com.balaji.ecommerce.model.Category;
+import com.balaji.ecommerce.service.CategoryService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api")
+public class CategoryController {
+
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
+
+    // 🔐 ADMIN ONLY
+    @PostMapping("/admin/categories")
+    public Category createCategory(@RequestBody CategoryRequest request) {
+        return categoryService.createCategory(request.getName());
+    }
+
+    // 🌍 PUBLIC (for filters)
+    @GetMapping("/categories")
+    public List<Category> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
+}

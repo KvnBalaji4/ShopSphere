@@ -1,0 +1,54 @@
+package com.balaji.ecommerce.auth;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.balaji.ecommerce.user.User;
+import com.balaji.ecommerce.user.UserRepository;
+
+@Service
+public class AuthService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // ✅ REGISTER USER
+    public User register(RegisterRequest request) {
+
+        userRepository.findByEmail(request.getEmail())
+                .ifPresent(u -> {
+                    throw new RuntimeException("Email already registered");
+                });
+
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // default USER, ADMIN only via request/DB
+        user.setRole(
+                request.getRole() != null ? request.getRole() : "USER"
+        );
+
+        return userRepository.save(user);
+    }
+
+    // ✅ AUTHENTICATE USER
+    public User authenticate(String email, String password) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid credentials");
+        }
+
+        return user;
+    }
+}

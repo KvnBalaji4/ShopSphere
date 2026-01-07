@@ -1,0 +1,96 @@
+.home-container {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* HERO */
+.home-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.home-hero p {
+  font-size: 16px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.home-cta-btn {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.home-cta-btn:hover {
+  background: #1d4ed8;
+}
+
+/* FEATURES */
+.home-features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 70px 0;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  width: 220px;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+.feature-card span {
+  font-size: 28px;
+}
+
+.feature-card h4 {
+  margin: 12px 0 6px;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.feature-card p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* BOTTOM CTA */
+.home-bottom {
+  margin-top: 40px;
+}
+
+.home-bottom h3 {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.home-bottom button {
+  background: #16a34a;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.home-bottom button:hover {
+  background: #15803d;
+}

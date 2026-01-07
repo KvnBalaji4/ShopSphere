@@ -1,0 +1,50 @@
+package com.balaji.ecommerce.service;
+
+import com.balaji.ecommerce.dto.CreateProductRequest;
+import com.balaji.ecommerce.model.Category;
+import com.balaji.ecommerce.model.Product;
+import com.balaji.ecommerce.repository.CategoryRepository;
+import com.balaji.ecommerce.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ProductService {
+
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+
+    public ProductService(ProductRepository productRepository,
+                          CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
+
+    // ➕ CREATE PRODUCT (ADMIN)
+    public Product createProduct(CreateProductRequest request) {
+
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        Product product = new Product();
+        product.setName(request.getName());
+        product.setDescription(request.getDescription());
+        product.setPrice(request.getPrice());
+        product.setImageUrl(request.getImageUrl());
+        product.setStock(request.getStock());
+        product.setCategory(category);
+
+        return productRepository.save(product);
+    }
+
+    // 📦 ALL PRODUCTS
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    // 🔍 PRODUCTS BY CATEGORY
+    public List<Product> getProductsByCategory(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+}

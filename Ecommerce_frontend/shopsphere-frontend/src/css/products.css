@@ -1,0 +1,18 @@
+.products-page {
+  padding: 40px 60px;
+  background: #f5f7ff;
+  min-height: calc(100vh - 96px);
+}
+
+.products-title {
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f3cc9;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}

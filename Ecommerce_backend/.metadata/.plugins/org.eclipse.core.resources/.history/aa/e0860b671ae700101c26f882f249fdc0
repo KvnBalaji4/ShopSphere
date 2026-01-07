@@ -1,0 +1,5 @@
+package com.balaji.ecommerce.dto;
+
+public class RegistrationRequest {
+
+}
