@@ -1,0 +1,67 @@
+.admin-container {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.admin-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.admin-header p {
+  color: #64748b;
+  margin-bottom: 40px;
+  font-size: 15px;
+}
+
+/* GRID */
+.admin-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* CARD */
+.admin-card {
+  width: 240px;
+  padding: 26px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+}
+
+.admin-card span {
+  font-size: 30px;
+}
+
+.admin-card h4 {
+  margin: 14px 0 6px;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.admin-card p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* DISABLED CARDS */
+.admin-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-card.disabled:hover {
+  transform: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}

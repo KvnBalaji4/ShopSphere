@@ -6,7 +6,9 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import AdminRoute from "./auth/AdminRoute";
+
 import Home from "./pages/Home";
+import AdminDashboard from "./admin/AdminDashboard";
 
 const App = () => (
   <AuthProvider>
@@ -24,7 +26,7 @@ const App = () => (
           path="/admin"
           element={
             <AdminRoute>
-              <h1>Admin Dashboard</h1>
+              <AdminDashboard />
             </AdminRoute>
           }
         />

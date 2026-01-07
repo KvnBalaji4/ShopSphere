@@ -29,24 +29,24 @@ const Navbar = () => {
           </>
         )}
 
-        {/* USER LOGGED IN */}
-        {user && user.role === "USER" && (
-          <button className="navbar-btn" onClick={handleLogout}>
-            Logout
-          </button>
-        )}
-
-        {/* ADMIN LOGGED IN */}
+        {/* ADMIN */}
         {user && user.role === "ADMIN" && (
           <>
-            <Link to="/admin" className="admin-link">
-              Admin Dashboard
-            </Link>
+            <Link to="/admin">Dashboard</Link>
+            <Link to="/admin/categories">Categories</Link>
+            <Link to="/admin/products">Products</Link>
 
             <button className="navbar-btn" onClick={handleLogout}>
               Logout
             </button>
           </>
+        )}
+
+        {/* USER (future-proof) */}
+        {user && user.role === "USER" && (
+          <button className="navbar-btn" onClick={handleLogout}>
+            Logout
+          </button>
         )}
       </div>
     </nav>
