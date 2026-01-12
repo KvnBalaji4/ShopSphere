@@ -21,6 +21,9 @@ public class Product {
     private Double price;
 
     @Column(nullable = false)
+    private Integer stock; // ✅ NEW
+
+    @Column(nullable = false)
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,48 +31,19 @@ public class Product {
     private Category category;
 
     // getters
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public Double getPrice() { return price; }
+    public Integer getStock() { return stock; }
+    public String getImageUrl() { return imageUrl; }
+    public Category getCategory() { return category; }
 
     // setters
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+    public void setPrice(Double price) { this.price = price; }
+    public void setStock(Integer stock) { this.stock = stock; } // ✅ NEW
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public void setCategory(Category category) { this.category = category; }
 }

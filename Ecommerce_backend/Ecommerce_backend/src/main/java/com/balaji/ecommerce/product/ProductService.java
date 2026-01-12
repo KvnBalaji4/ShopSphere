@@ -19,6 +19,10 @@ public class ProductService {
     // 🔐 ADMIN CREATE PRODUCT
     public Product createProduct(ProductRequest request) {
 
+        if (request.getStock() == null || request.getStock() < 0) {
+            throw new RuntimeException("Stock must be 0 or more");
+        }
+
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -26,6 +30,7 @@ public class ProductService {
         product.setName(request.getName().trim());
         product.setDescription(request.getDescription().trim());
         product.setPrice(request.getPrice());
+        product.setStock(request.getStock()); // ✅ NEW
         product.setImageUrl(request.getImageUrl());
         product.setCategory(category);
 

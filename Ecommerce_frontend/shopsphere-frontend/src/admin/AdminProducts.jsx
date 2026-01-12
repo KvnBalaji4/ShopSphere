@@ -10,6 +10,7 @@ const AdminProducts = () => {
     name: "",
     description: "",
     price: "",
+    stock: "",          // ✅ NEW
     imageUrl: "",
     categoryId: null,
   });
@@ -31,9 +32,15 @@ const AdminProducts = () => {
       return;
     }
 
+    if (Number(form.stock) < 0) {
+      alert("Stock cannot be negative");
+      return;
+    }
+
     await api.post("/admin/products", {
       ...form,
       price: Number(form.price),
+      stock: Number(form.stock), // ✅ NEW
     });
 
     alert("✅ Product added successfully");
@@ -42,6 +49,7 @@ const AdminProducts = () => {
       name: "",
       description: "",
       price: "",
+      stock: "",
       imageUrl: "",
       categoryId: null,
     });
@@ -60,7 +68,9 @@ const AdminProducts = () => {
         <input
           placeholder="Product Name"
           value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
+          onChange={(e) =>
+            setForm({ ...form, name: e.target.value })
+          }
           required
         />
 
@@ -77,7 +87,21 @@ const AdminProducts = () => {
           type="number"
           placeholder="Price"
           value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          onChange={(e) =>
+            setForm({ ...form, price: e.target.value })
+          }
+          required
+        />
+
+        {/* ✅ STOCK INPUT */}
+        <input
+          type="number"
+          placeholder="Stock (No. of items)"
+          value={form.stock}
+          onChange={(e) =>
+            setForm({ ...form, stock: e.target.value })
+          }
+          min="0"
           required
         />
 
