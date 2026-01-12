@@ -25,8 +25,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/api/auth/")
-                || request.getMethod().equals("OPTIONS");
+        String path = request.getRequestURI();
+
+        return path.startsWith("/api/auth/")
+            || path.startsWith("/api/categories/")
+            || path.startsWith("/api/products/")
+            || request.getMethod().equals("OPTIONS");
     }
 
     @Override
@@ -37,6 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
+        // ✅ If no token, just continue (DO NOT BLOCK)
         if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;

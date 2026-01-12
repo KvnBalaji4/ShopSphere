@@ -14,18 +14,27 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        return productRepository.findAll();
+    public List<ProductResponse> getAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(ProductResponse::new)
+                .toList();
     }
 
     @GetMapping("/category/{categoryId}")
-    public List<Product> byCategory(@PathVariable Long categoryId) {
-        return productRepository.findByCategoryId(categoryId);
+    public List<ProductResponse> byCategory(@PathVariable Long categoryId) {
+        return productRepository.findByCategoryId(categoryId)
+                .stream()
+                .map(ProductResponse::new)
+                .toList();
     }
 
     @GetMapping("/search")
-    public List<Product> search(@RequestParam String q) {
+    public List<ProductResponse> search(@RequestParam String q) {
         return productRepository
-                .findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(q, q);
+                .findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(q, q)
+                .stream()
+                .map(ProductResponse::new)
+                .toList();
     }
 }

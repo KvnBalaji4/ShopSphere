@@ -12,19 +12,17 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    // 🔐 ADMIN CREATE CATEGORY
     public Category createCategory(CategoryRequest request) {
 
-        String normalizedName = request.getName().trim().toLowerCase();
+        String name = request.getName().trim();
 
-        if (categoryRepository.existsByNameIgnoreCase(normalizedName)) {
+        if (categoryRepository.existsByNameIgnoreCase(name)) {
             throw new RuntimeException("Category already exists");
         }
 
         Category category = new Category();
-        category.setName(normalizedName);
+        category.setName(name);
 
-        // attach parent if provided
         if (request.getParentId() != null) {
             Category parent = categoryRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("Parent category not found"));
@@ -34,7 +32,6 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    // 🌍 PUBLIC APIs
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }

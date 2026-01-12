@@ -2,17 +2,16 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "http://localhost:8081/api",
-  withCredentials: false, // 🔥 MUST BE FALSE for JWT in header
 });
 
+// 🔥 THIS IS NON-NEGOTIABLE
 api.interceptors.request.use((config) => {
-  // 🚫 Do NOT attach token for auth endpoints
-  if (!config.url.startsWith("/auth")) {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 

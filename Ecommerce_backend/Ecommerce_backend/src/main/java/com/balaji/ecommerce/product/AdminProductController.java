@@ -13,7 +13,7 @@ public class AdminProductController {
     }
 
     @PostMapping
-    public Product create(@RequestBody ProductRequest request) {
-        return productService.createProduct(request);
+    public ProductResponse create(@RequestBody ProductRequest request) {
+        return new ProductResponse(productService.createProduct(request));
     }
 }
