@@ -96,3 +96,38 @@ body {
   border-radius: 50%;
   line-height: 1;
 }
+
+/* =========================
+   DROPDOWN (ADMIN PRODUCTS)
+========================= */
+.navbar-dropdown {
+  position: relative;
+}
+
+.navbar-link {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border-radius: 8px;
+  min-width: 160px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 8px 0;
+  z-index: 9999;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 14px;
+  color: #0f172a;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background: #f1f5f9;
+}

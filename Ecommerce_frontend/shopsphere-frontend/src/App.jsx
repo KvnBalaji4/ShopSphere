@@ -8,6 +8,8 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import AdminRoute from "./auth/AdminRoute";
 import AdminCategories from "./admin/AdminCategories";
 import Home from "./pages/Home";
+import AdminUpdateProduct from "./admin/AdminUpdateProduct";
+
 import AdminProducts from "./admin/AdminProducts";
 import AdminDashboard from "./admin/AdminDashboard";
 
@@ -40,6 +42,14 @@ const App = () => (
       </AdminRoute>
     }
   />
+  <Route
+  path="/admin/products/update"
+  element={
+    <AdminRoute>
+      <AdminUpdateProduct />
+    </AdminRoute>
+  }
+/>
 
   <Route
     path="/admin/products"

@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../css/navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showProductsMenu, setShowProductsMenu] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -21,7 +22,6 @@ const Navbar = () => {
 
       {/* LINKS */}
       <div className="navbar-links">
-        {/* NOT LOGGED IN */}
         {!user && (
           <>
             <Link to="/login">Login</Link>
@@ -29,12 +29,27 @@ const Navbar = () => {
           </>
         )}
 
-        {/* ADMIN */}
         {user && user.role === "ADMIN" && (
           <>
             <Link to="/admin">Dashboard</Link>
             <Link to="/admin/categories">Categories</Link>
-            <Link to="/admin/products">Products</Link>
+
+            {/* 🔽 PRODUCTS DROPDOWN */}
+            <div
+              className="navbar-dropdown"
+              onMouseEnter={() => setShowProductsMenu(true)}
+              onMouseLeave={() => setShowProductsMenu(false)}
+            >
+              <span className="navbar-link">Products ▾</span>
+
+              {showProductsMenu && (
+                <div className="dropdown-menu">
+                  <Link to="/admin/products">Add Product</Link>
+                  <Link to="/admin/products/update">Update Product</Link>
+                  <Link to="/admin/products/delete">Delete Product</Link>
+                </div>
+              )}
+            </div>
 
             <button className="navbar-btn" onClick={handleLogout}>
               Logout
@@ -42,7 +57,6 @@ const Navbar = () => {
           </>
         )}
 
-        {/* USER (future-proof) */}
         {user && user.role === "USER" && (
           <button className="navbar-btn" onClick={handleLogout}>
             Logout

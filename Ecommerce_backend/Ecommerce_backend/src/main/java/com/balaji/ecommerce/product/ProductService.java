@@ -36,4 +36,22 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+    public Product updateProduct(Long productId, ProductRequest request) {
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        product.setName(request.getName().trim());
+        product.setDescription(request.getDescription().trim());
+        product.setPrice(request.getPrice());
+        product.setStock(request.getStock());
+        product.setImageUrl(request.getImageUrl());
+        product.setCategory(category);
+
+        return productRepository.save(product);
+    }
+
 }
