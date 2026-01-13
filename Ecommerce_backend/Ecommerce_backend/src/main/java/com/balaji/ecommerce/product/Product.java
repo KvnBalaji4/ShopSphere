@@ -1,9 +1,12 @@
 package com.balaji.ecommerce.product;
 
 import com.balaji.ecommerce.category.Category;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "products")
 public class Product {
 

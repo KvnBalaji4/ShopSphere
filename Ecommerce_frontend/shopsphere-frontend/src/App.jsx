@@ -8,8 +8,10 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import AdminRoute from "./auth/AdminRoute";
 import AdminCategories from "./admin/AdminCategories";
 import Home from "./pages/Home";
-import AdminUpdateProduct from "./admin/AdminUpdateProduct";
+import AdminUpdateStock from "./admin/AdminUpdateStock";
 
+import AdminUpdateProduct from "./admin/AdminUpdateProduct";
+import AdminDeleteProduct from "./admin/AdminDeleteProduct";
 import AdminProducts from "./admin/AdminProducts";
 import AdminDashboard from "./admin/AdminDashboard";
 
@@ -50,6 +52,14 @@ const App = () => (
     </AdminRoute>
   }
 />
+<Route
+  path="/admin/products/delete"
+  element={
+    <AdminRoute>
+      <AdminDeleteProduct />
+    </AdminRoute>
+  }
+/>
 
   <Route
     path="/admin/products"
@@ -59,6 +69,15 @@ const App = () => (
       </AdminRoute>
     }
   />
+  <Route
+  path="/admin/products/stock"
+  element={
+    <AdminRoute>
+      <AdminUpdateStock />
+    </AdminRoute>
+  }
+/>
+
 </Routes>
 
     </BrowserRouter>

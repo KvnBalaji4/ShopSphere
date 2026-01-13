@@ -23,5 +23,17 @@ public class AdminProductController {
     ) {
         return productService.updateProduct(id, request);
     }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        productService.deleteProduct(id);
+    }
+    @PatchMapping("/{id}/stock")
+    public Product updateStock(
+            @PathVariable Long id,
+            @RequestParam Integer stock
+    ) {
+        return productService.updateStock(id, stock);
+    }
+
 
 }

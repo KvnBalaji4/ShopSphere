@@ -46,7 +46,9 @@ const Navbar = () => {
                 <div className="dropdown-menu">
                   <Link to="/admin/products">Add Product</Link>
                   <Link to="/admin/products/update">Update Product</Link>
+                  <Link to="/admin/products/stock">Update Stock</Link>
                   <Link to="/admin/products/delete">Delete Product</Link>
+
                 </div>
               )}
             </div>

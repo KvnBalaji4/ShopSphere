@@ -53,5 +53,25 @@ public class ProductService {
 
         return productRepository.save(product);
     }
+    public void deleteProduct(Long productId) {
+        if (!productRepository.existsById(productId)) {
+            throw new RuntimeException("Product not found");
+        }
+        productRepository.deleteById(productId);
+    }
+    public Product updateStock(Long productId, Integer stock) {
+
+        if (stock == null || stock < 0) {
+            throw new RuntimeException("Stock must be 0 or more");
+        }
+
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setStock(stock);
+
+        return productRepository.save(product);
+    }
+
 
 }
