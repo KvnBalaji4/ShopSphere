@@ -13,6 +13,7 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
+    // ===== ALL PRODUCTS =====
     @GetMapping
     public List<ProductResponse> getAll() {
         return productRepository.findAll()
@@ -21,6 +22,7 @@ public class ProductController {
                 .toList();
     }
 
+    // ===== CHILD CATEGORY =====
     @GetMapping("/category/{categoryId}")
     public List<ProductResponse> byCategory(@PathVariable Long categoryId) {
         return productRepository.findByCategoryId(categoryId)
@@ -29,6 +31,16 @@ public class ProductController {
                 .toList();
     }
 
+    // ===== PARENT CATEGORY (FIX FOR ELECTRONICS) =====
+    @GetMapping("/parent-category/{parentId}")
+    public List<ProductResponse> byParentCategory(@PathVariable Long parentId) {
+        return productRepository.findByParentCategoryId(parentId)
+                .stream()
+                .map(ProductResponse::new)
+                .toList();
+    }
+
+    // ===== SEARCH =====
     @GetMapping("/search")
     public List<ProductResponse> search(@RequestParam String q) {
         return productRepository
@@ -37,20 +49,12 @@ public class ProductController {
                 .map(ProductResponse::new)
                 .toList();
     }
+
+    // ===== PRODUCT DETAIL =====
     @GetMapping("/{id}")
     public ProductResponse getById(@PathVariable Long id) {
-
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-
-        return new ProductResponse(product);
-    }
-    @GetMapping("/{id}")
-    public ProductResponse getOne(@PathVariable Long id) {
         return productRepository.findById(id)
-            .map(ProductResponse::new)
-            .orElseThrow();
+                .map(ProductResponse::new)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
-
-
 }
