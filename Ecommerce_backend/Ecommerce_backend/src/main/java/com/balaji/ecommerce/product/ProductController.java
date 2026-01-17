@@ -37,4 +37,20 @@ public class ProductController {
                 .map(ProductResponse::new)
                 .toList();
     }
+    @GetMapping("/{id}")
+    public ProductResponse getById(@PathVariable Long id) {
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        return new ProductResponse(product);
+    }
+    @GetMapping("/{id}")
+    public ProductResponse getOne(@PathVariable Long id) {
+        return productRepository.findById(id)
+            .map(ProductResponse::new)
+            .orElseThrow();
+    }
+
+
 }

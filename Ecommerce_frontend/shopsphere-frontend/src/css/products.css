@@ -1,64 +1,57 @@
-/* =========================
-   PAGE
-========================= */
-.admin-products {
-  background: #f8fafc;
-  padding-top: 140px; /* navbar space */
-  padding-bottom: 60px;
+/* ===============================
+   SHARED ADMIN PRODUCT STYLES
+   (SAFE, MINIMAL, CLEAN)
+================================ */
+
+.admin-products,
+.admin-update-stock,
+.admin-update-product,
+.admin-delete-product {
+  padding: 40px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* =========================
-   CARD
-========================= */
-.product-form {
-  margin: 0 auto 40px;
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  padding: 32px 28px;
-  border-radius: 14px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
-
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* =========================
-   TITLE
-========================= */
-.admin-products h2 {
-  text-align: center;
+/* Headings */
+.admin-products h2,
+.admin-update-stock h2,
+.admin-update-product h2,
+.admin-delete-product h2 {
   margin-bottom: 20px;
   font-size: 22px;
   font-weight: 700;
   color: #0f172a;
 }
 
-/* =========================
-   INPUTS
-========================= */
-.product-form input,
-.product-form textarea {
-  width: 100%;
-  padding: 10px 14px;
+/* Forms */
+.admin-products form,
+.admin-update-stock form,
+.admin-update-product form,
+.admin-delete-product form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Inputs */
+.admin-products input,
+.admin-update-stock input,
+.admin-update-product input,
+.admin-delete-product input {
+  height: 42px;
+  padding: 0 12px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   font-size: 14px;
-  color: #0f172a;
-  background-color: #ffffff;
 }
 
-.product-form textarea {
-  resize: none;
-  height: 80px;
-}
-
-/* =========================
-   BUTTON
-========================= */
-.product-form button {
-  height: 44px;
+/* Buttons */
+.admin-products button,
+.admin-update-stock button,
+.admin-update-product button,
+.admin-delete-product button {
+  height: 42px;
   background: #2563eb;
   color: #ffffff;
   border: none;
@@ -68,78 +61,20 @@
   cursor: pointer;
 }
 
-.product-form button:hover {
+.admin-products button:hover,
+.admin-update-stock button:hover,
+.admin-update-product button:hover,
+.admin-delete-product button:hover {
   background: #1d4ed8;
 }
 
-/* =========================
-   REACT-SELECT
-========================= */
-.category-select {
-  width: 100%;
-}
-
-.select__control {
-  min-height: 44px;
+/* react-select fix */
+.react-select__control {
+  min-height: 42px;
   border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
+  border-color: #d1d5db;
 }
 
-.select__control--is-focused {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
-}
-
-.select__menu {
-  z-index: 9999; /* fixes navbar overlap */
-}
-
-/* =========================
-   PRODUCT GRID
-========================= */
-.product-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-}
-
-/* =========================
-   PRODUCT CARD
-========================= */
-.product-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 14px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  text-align: center;
-}
-
-.product-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.product-card h4 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #0f172a;
-  margin-bottom: 6px;
-}
-
-.product-card p {
-  font-size: 14px;
-  font-weight: 700;
-  color: #2563eb;
-  margin-bottom: 4px;
-}
-
-.product-card small {
-  font-size: 12px;
-  color: #64748b;
+.react-select__menu {
+  z-index: 9999;
 }

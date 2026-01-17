@@ -22,6 +22,7 @@ const Navbar = () => {
 
       {/* LINKS */}
       <div className="navbar-links">
+        {/* NOT LOGGED IN */}
         {!user && (
           <>
             <Link to="/login">Login</Link>
@@ -29,12 +30,13 @@ const Navbar = () => {
           </>
         )}
 
+        {/* ADMIN */}
         {user && user.role === "ADMIN" && (
           <>
             <Link to="/admin">Dashboard</Link>
             <Link to="/admin/categories">Categories</Link>
 
-            {/* 🔽 PRODUCTS DROPDOWN */}
+            {/* PRODUCTS DROPDOWN */}
             <div
               className="navbar-dropdown"
               onMouseEnter={() => setShowProductsMenu(true)}
@@ -48,7 +50,6 @@ const Navbar = () => {
                   <Link to="/admin/products/update">Update Product</Link>
                   <Link to="/admin/products/stock">Update Stock</Link>
                   <Link to="/admin/products/delete">Delete Product</Link>
-
                 </div>
               )}
             </div>
@@ -59,10 +60,15 @@ const Navbar = () => {
           </>
         )}
 
+        {/* USER */}
         {user && user.role === "USER" && (
-          <button className="navbar-btn" onClick={handleLogout}>
-            Logout
-          </button>
+          <>
+            <Link to="/shop">Shop</Link>
+
+            <button className="navbar-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </>
         )}
       </div>
     </nav>

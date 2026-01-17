@@ -4,16 +4,18 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import ProtectedRoute from "./auth/ProtectedRoute";
 import AdminRoute from "./auth/AdminRoute";
-import AdminCategories from "./admin/AdminCategories";
-import Home from "./pages/Home";
-import AdminUpdateStock from "./admin/AdminUpdateStock";
 
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import ProductDetail from "./pages/ProductDetail";
+
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminCategories from "./admin/AdminCategories";
+import AdminProducts from "./admin/AdminProducts";
 import AdminUpdateProduct from "./admin/AdminUpdateProduct";
 import AdminDeleteProduct from "./admin/AdminDeleteProduct";
-import AdminProducts from "./admin/AdminProducts";
-import AdminDashboard from "./admin/AdminDashboard";
+import AdminUpdateStock from "./admin/AdminUpdateStock";
 
 const App = () => (
   <AuthProvider>
@@ -21,65 +23,70 @@ const App = () => (
       <Navbar />
 
       <Routes>
-  {/* PUBLIC */}
-  <Route path="/" element={<Home />} />
-  <Route path="/login" element={<Login />} />
-  <Route path="/register" element={<Register />} />
+        {/* ===== PUBLIC ===== */}
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-  {/* ADMIN */}
-  <Route
-    path="/admin"
-    element={
-      <AdminRoute>
-        <AdminDashboard />
-      </AdminRoute>
-    }
-  />
+        {/* ===== SHOP (USER) ===== */}
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
 
-  <Route
-    path="/admin/categories"
-    element={
-      <AdminRoute>
-        <AdminCategories />
-      </AdminRoute>
-    }
-  />
-  <Route
-  path="/admin/products/update"
-  element={
-    <AdminRoute>
-      <AdminUpdateProduct />
-    </AdminRoute>
-  }
-/>
-<Route
-  path="/admin/products/delete"
-  element={
-    <AdminRoute>
-      <AdminDeleteProduct />
-    </AdminRoute>
-  }
-/>
+        {/* ===== ADMIN ===== */}
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
 
-  <Route
-    path="/admin/products"
-    element={
-      <AdminRoute>
-        <AdminProducts />
-      </AdminRoute>
-    }
-  />
-  <Route
-  path="/admin/products/stock"
-  element={
-    <AdminRoute>
-      <AdminUpdateStock />
-    </AdminRoute>
-  }
-/>
+        <Route
+          path="/admin/categories"
+          element={
+            <AdminRoute>
+              <AdminCategories />
+            </AdminRoute>
+          }
+        />
 
-</Routes>
+        <Route
+          path="/admin/products"
+          element={
+            <AdminRoute>
+              <AdminProducts />
+            </AdminRoute>
+          }
+        />
 
+        <Route
+          path="/admin/products/update"
+          element={
+            <AdminRoute>
+              <AdminUpdateProduct />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/products/delete"
+          element={
+            <AdminRoute>
+              <AdminDeleteProduct />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/products/stock"
+          element={
+            <AdminRoute>
+              <AdminUpdateStock />
+            </AdminRoute>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   </AuthProvider>
 );
