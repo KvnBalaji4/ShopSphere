@@ -16,6 +16,8 @@ import AdminProducts from "./admin/AdminProducts";
 import AdminUpdateProduct from "./admin/AdminUpdateProduct";
 import AdminDeleteProduct from "./admin/AdminDeleteProduct";
 import AdminUpdateStock from "./admin/AdminUpdateStock";
+import OrderSuccess from "./pages/OrderSuccess";
+import Checkout from "./pages/Checkout";
 
 const App = () => (
   <>
@@ -75,7 +77,11 @@ const App = () => (
           </AdminRoute>
         }
       />
-
+      <Route path="/checkout" element={<Checkout />} />
+<Route
+  path="/order-success/:id"
+  element={<OrderSuccess />}
+/>
       <Route
         path="/admin/products/stock"
         element={

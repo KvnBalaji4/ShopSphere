@@ -38,15 +38,21 @@ public class SecurityConfig {
             .httpBasic(basic -> basic.disable())
 
             .authorizeHttpRequests(auth -> auth
-                // ✅ allow preflight
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            	    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/categories/**").permitAll()
-                .requestMatchers("/api/products/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-            )
+            	    // PUBLIC
+            	    .requestMatchers("/api/auth/**").permitAll()
+            	    .requestMatchers("/api/categories/**").permitAll()
+            	    .requestMatchers("/api/products/**").permitAll()
+
+            	    // 🔐 USER MUST BE LOGGED IN
+            	    .requestMatchers("/api/orders/**").authenticated()
+
+            	    // 🔐 ADMIN
+            	    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+            	    .anyRequest().authenticated()
+            	)
 
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

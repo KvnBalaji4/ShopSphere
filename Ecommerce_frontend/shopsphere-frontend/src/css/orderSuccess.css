@@ -1,0 +1,25 @@
+.order-success {
+  padding-top: 160px;
+  text-align: center;
+}
+
+.order-success h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.order-success strong {
+  display: block;
+  font-size: 20px;
+  margin: 10px 0 30px;
+}
+
+.order-success button {
+  padding: 12px 22px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+}
