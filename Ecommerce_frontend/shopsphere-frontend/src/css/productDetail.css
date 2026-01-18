@@ -1,93 +1,163 @@
 /* ===== PAGE ===== */
-.product-detail-page {
-  background: #f8fafc;
-  padding: 40px 24px;
+.pd-container {
+  padding: 140px 60px 60px;
+  background: #f9fafb;
   min-height: 100vh;
 }
 
+/* ===== BREADCRUMB ===== */
+.pd-breadcrumb {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.pd-breadcrumb span {
+  cursor: pointer;
+}
+
+.pd-breadcrumb span:hover {
+  text-decoration: underline;
+}
+
 /* ===== CARD ===== */
-.product-detail-card {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: #ffffff;
+.pd-card {
+  background: white;
   border-radius: 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
   padding: 32px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
 /* ===== IMAGE ===== */
-.product-detail-img {
-  width: 100%;
-  height: 420px;
-  border-radius: 14px;
-  background: #f1f5f9;
+.pd-image {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
-.product-detail-img img {
-  width: 100%;
-  height: 100%;
+.pd-image img {
+  max-width: 100%;
+  max-height: 420px;
   object-fit: contain;
 }
 
 /* ===== INFO ===== */
-.product-detail-info {
+.pd-info {
   display: flex;
   flex-direction: column;
+  gap: 14px;
 }
 
-.product-detail-info h2 {
+.pd-name {
   font-size: 26px;
   font-weight: 700;
   color: #0f172a;
-  margin-bottom: 12px;
 }
 
-/* PRICE */
-.detail-price {
-  font-size: 28px;
-  font-weight: 800;
-  color: #2563eb;
-  margin-bottom: 12px;
-}
-
-/* STOCK */
-.in-stock {
+.pd-price {
+  font-size: 24px;
+  font-weight: 600;
   color: #16a34a;
+}
+
+/* ===== STOCK ===== */
+.pd-stock {
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 16px;
+}
+
+.in-stock {
+  color: #16a34a;
 }
 
 .out-stock {
   color: #dc2626;
+}
+
+/* ===== DESC ===== */
+.pd-desc {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* ===== BUTTON ===== */
+.pd-btn {
+  margin-top: 20px;
+  height: 46px;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pd-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* ===== NOTE ===== */
+.pd-note {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ===== STATES ===== */
+.pd-loading,
+.pd-error {
+  padding-top: 160px;
+  text-align: center;
+  font-size: 16px;
+}
+/* ===== CART TOAST ===== */
+.cart-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f172a;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  animation: slideUp 0.3s ease;
+  z-index: 9999;
 }
 
-/* DESCRIPTION */
-.detail-desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #334155;
-  margin-top: 12px;
+.cart-toast button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) {
-  .product-detail-card {
-    grid-template-columns: 1fr;
-    gap: 24px;
+.cart-toast button:hover {
+  background: #1d4ed8;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-
-  .product-detail-img {
-    height: 300px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import "../css/productDetail.css";
+import { useCart } from "../context/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showToast, setShowToast] = useState(false); // ✅ NEW
 
   useEffect(() => {
     loadProduct();
@@ -14,39 +19,45 @@ const ProductDetail = () => {
 
   const loadProduct = async () => {
     try {
-      setLoading(true);
       const res = await api.get(`/products/${id}`);
       setProduct(res.data);
     } catch (err) {
       console.error("Failed to load product", err);
-      setProduct(null);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) {
-    return <p style={{ padding: "40px" }}>Loading product...</p>;
-  }
+  const handleAddToCart = () => {
+    addToCart(product);
 
-  if (!product) {
-    return <p style={{ padding: "40px" }}>Product not found</p>;
-  }
+    // ✅ SHOW CONFIRMATION
+    setShowToast(true);
+
+    // auto hide after 2.5s
+    setTimeout(() => setShowToast(false), 2500);
+  };
+
+  if (loading) return <p className="pd-loading">Loading product…</p>;
+  if (!product) return <p className="pd-error">Product not found</p>;
 
   return (
-    <div className="product-detail-page">
-      <div className="product-detail-card">
-        <div className="product-detail-img">
+    <div className="pd-container">
+      {/* ===== CARD ===== */}
+      <div className="pd-card">
+        <div className="pd-image">
           <img src={product.imageUrl} alt={product.name} />
         </div>
 
-        <div className="product-detail-info">
-          <h2>{product.name}</h2>
-          <p className="detail-price">₹{product.price}</p>
+        <div className="pd-info">
+          <h1 className="pd-name">{product.name}</h1>
+          <p className="pd-price">₹{product.price}</p>
 
           <span
             className={
-              product.stock > 0 ? "in-stock" : "out-stock"
+              product.stock > 0
+                ? "pd-stock in-stock"
+                : "pd-stock out-stock"
             }
           >
             {product.stock > 0
@@ -54,9 +65,27 @@ const ProductDetail = () => {
               : "Out of stock"}
           </span>
 
-          <p className="detail-desc">{product.description}</p>
+          <p className="pd-desc">{product.description}</p>
+
+          <button
+            className="pd-btn"
+            disabled={product.stock <= 0}
+            onClick={handleAddToCart}
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
+
+      {/* ===== TOAST CONFIRMATION ===== */}
+      {showToast && (
+        <div className="cart-toast">
+          <span>✅ Added to cart</span>
+          <button onClick={() => navigate("/cart")}>
+            View Cart
+          </button>
+        </div>
+      )}
     </div>
   );
 };

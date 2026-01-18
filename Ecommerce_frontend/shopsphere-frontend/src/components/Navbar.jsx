@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { useCart } from "../context/CartContext"; // ✅ ADD
 import "../css/navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const { cart } = useCart(); // ✅ ADD
   const navigate = useNavigate();
   const [showProductsMenu, setShowProductsMenu] = useState(false);
 
@@ -12,6 +14,12 @@ const Navbar = () => {
     logout();
     navigate("/login");
   };
+
+  // ✅ TOTAL CART COUNT
+  const totalItems = cart.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
 
   return (
     <nav className="navbar">
@@ -22,7 +30,6 @@ const Navbar = () => {
 
       {/* LINKS */}
       <div className="navbar-links">
-        {/* NOT LOGGED IN */}
         {!user && (
           <>
             <Link to="/login">Login</Link>
@@ -64,6 +71,14 @@ const Navbar = () => {
         {user && user.role === "USER" && (
           <>
             <Link to="/shop">Shop</Link>
+
+            {/* 🛒 CART ICON WITH BADGE */}
+            <Link to="/cart" className="cart-link">
+              🛒
+              {totalItems > 0 && (
+                <span className="cart-badge">{totalItems}</span>
+              )}
+            </Link>
 
             <button className="navbar-btn" onClick={handleLogout}>
               Logout
