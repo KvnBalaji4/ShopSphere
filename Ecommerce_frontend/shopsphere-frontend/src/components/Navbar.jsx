@@ -1,13 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useCart } from "../context/CartContext"; // ✅ ADD
+import { useCart } from "../context/CartContext";
 import "../css/navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const { cart } = useCart(); // ✅ ADD
+  const { cart } = useCart();
   const navigate = useNavigate();
+
   const [showProductsMenu, setShowProductsMenu] = useState(false);
 
   const handleLogout = () => {
@@ -15,7 +16,7 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // ✅ TOTAL CART COUNT
+  // 🛒 total cart items
   const totalItems = cart.reduce(
     (sum, item) => sum + item.quantity,
     0
@@ -23,13 +24,14 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      {/* LOGO */}
+      {/* ===== LOGO ===== */}
       <div className="navbar-logo">
         <Link to="/">ShopSphere</Link>
       </div>
 
-      {/* LINKS */}
+      {/* ===== LINKS ===== */}
       <div className="navbar-links">
+        {/* ===== GUEST ===== */}
         {!user && (
           <>
             <Link to="/login">Login</Link>
@@ -37,13 +39,12 @@ const Navbar = () => {
           </>
         )}
 
-        {/* ADMIN */}
+        {/* ===== ADMIN ===== */}
         {user && user.role === "ADMIN" && (
           <>
             <Link to="/admin">Dashboard</Link>
             <Link to="/admin/categories">Categories</Link>
 
-            {/* PRODUCTS DROPDOWN */}
             <div
               className="navbar-dropdown"
               onMouseEnter={() => setShowProductsMenu(true)}
@@ -67,12 +68,13 @@ const Navbar = () => {
           </>
         )}
 
-        {/* USER */}
+        {/* ===== USER ===== */}
         {user && user.role === "USER" && (
           <>
             <Link to="/shop">Shop</Link>
+            <Link to="/orders">My Orders</Link>
 
-            {/* 🛒 CART ICON WITH BADGE */}
+            {/* 🛒 CART ICON */}
             <Link to="/cart" className="cart-link">
               🛒
               {totalItems > 0 && (
