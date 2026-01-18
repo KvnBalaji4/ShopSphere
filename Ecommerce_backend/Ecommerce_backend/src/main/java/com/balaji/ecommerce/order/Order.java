@@ -19,8 +19,9 @@ public class Order {
     @Column(nullable = false)
     private Double totalAmount;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status; // PLACED, CANCELLED
+    private OrderStatus status;
 
     private LocalDateTime createdAt;
 
@@ -30,18 +31,20 @@ public class Order {
     @PrePersist
     void onCreate() {
         createdAt = LocalDateTime.now();
-        status = "PLACED";
+        status = OrderStatus.PLACED;
     }
 
-    // getters & setters
+    // ===== GETTERS =====
     public Long getId() { return id; }
     public User getUser() { return user; }
     public Double getTotalAmount() { return totalAmount; }
-    public String getStatus() { return status; }
+    public OrderStatus getStatus() { return status; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public List<OrderItem> getItems() { return items; }
 
+    // ===== SETTERS =====
     public void setUser(User user) { this.user = user; }
     public void setTotalAmount(Double totalAmount) { this.totalAmount = totalAmount; }
+    public void setStatus(OrderStatus status) { this.status = status; }
     public void setItems(List<OrderItem> items) { this.items = items; }
 }

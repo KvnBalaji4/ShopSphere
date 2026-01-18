@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import "../css/productDetail.css";
@@ -11,10 +11,18 @@ const ProductDetail = () => {
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showToast, setShowToast] = useState(false); // ✅ NEW
+  const [showToast, setShowToast] = useState(false);
+
+  const toastTimer = useRef(null);
 
   useEffect(() => {
     loadProduct();
+
+    return () => {
+      if (toastTimer.current) {
+        clearTimeout(toastTimer.current);
+      }
+    };
   }, [id]);
 
   const loadProduct = async () => {
@@ -29,13 +37,16 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart({
+      ...product,
+      quantity: 1,
+    });
 
-    // ✅ SHOW CONFIRMATION
     setShowToast(true);
 
-    // auto hide after 2.5s
-    setTimeout(() => setShowToast(false), 2500);
+    toastTimer.current = setTimeout(() => {
+      setShowToast(false);
+    }, 2500);
   };
 
   if (loading) return <p className="pd-loading">Loading product…</p>;
@@ -43,7 +54,6 @@ const ProductDetail = () => {
 
   return (
     <div className="pd-container">
-      {/* ===== CARD ===== */}
       <div className="pd-card">
         <div className="pd-image">
           <img src={product.imageUrl} alt={product.name} />
@@ -77,7 +87,6 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* ===== TOAST CONFIRMATION ===== */}
       {showToast && (
         <div className="cart-toast">
           <span>✅ Added to cart</span>

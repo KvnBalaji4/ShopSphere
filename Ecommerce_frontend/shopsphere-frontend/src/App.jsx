@@ -9,6 +9,10 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import OrderSuccess from "./pages/OrderSuccess";
+import MyOrders from "./pages/MyOrders";
+import OrderDetail from "./pages/OrderDetail";
 
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminCategories from "./admin/AdminCategories";
@@ -16,21 +20,27 @@ import AdminProducts from "./admin/AdminProducts";
 import AdminUpdateProduct from "./admin/AdminUpdateProduct";
 import AdminDeleteProduct from "./admin/AdminDeleteProduct";
 import AdminUpdateStock from "./admin/AdminUpdateStock";
-import OrderSuccess from "./pages/OrderSuccess";
-import Checkout from "./pages/Checkout";
 
 const App = () => (
   <>
     <Navbar />
 
     <Routes>
-      {/* ===== PUBLIC ===== */}
+      {/* ===== PUBLIC / USER ===== */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+
       <Route path="/shop" element={<Shop />} />
       <Route path="/product/:id" element={<ProductDetail />} />
+
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
+
+      <Route path="/order-success/:id" element={<OrderSuccess />} />
+
+      <Route path="/orders" element={<MyOrders />} />
+      <Route path="/orders/:id" element={<OrderDetail />} />
 
       {/* ===== ADMIN ===== */}
       <Route
@@ -77,11 +87,7 @@ const App = () => (
           </AdminRoute>
         }
       />
-      <Route path="/checkout" element={<Checkout />} />
-<Route
-  path="/order-success/:id"
-  element={<OrderSuccess />}
-/>
+
       <Route
         path="/admin/products/stock"
         element={

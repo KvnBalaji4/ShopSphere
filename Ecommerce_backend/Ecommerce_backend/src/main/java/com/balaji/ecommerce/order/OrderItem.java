@@ -17,11 +17,20 @@ public class OrderItem {
     @ManyToOne(optional = false)
     private Product product;
 
+    @Column(nullable = false)
     private Integer quantity;
 
+    @Column(nullable = false)
     private Double price; // snapshot price
 
-    // getters & setters
+    // ===== GETTERS =====
+    public Long getId() { return id; }
+    public Order getOrder() { return order; }
+    public Product getProduct() { return product; }
+    public Integer getQuantity() { return quantity; }
+    public Double getPrice() { return price; }
+
+    // ===== SETTERS =====
     public void setOrder(Order order) { this.order = order; }
     public void setProduct(Product product) { this.product = product; }
     public void setQuantity(Integer quantity) { this.quantity = quantity; }

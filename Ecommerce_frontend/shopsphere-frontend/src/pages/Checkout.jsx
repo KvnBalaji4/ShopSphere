@@ -5,13 +5,12 @@ import { useCart } from "../context/CartContext";
 import "../css/checkout.css";
 
 const Checkout = () => {
-  const { cart, clearCart } = useCart(); // 🔥 FIX
+  const { cart, clearCart } = useCart();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // ✅ SAFE REDUCE
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -37,8 +36,7 @@ const Checkout = () => {
       navigate(`/order-success/${res.data.id}`);
     } catch (err) {
       setError(
-        err.response?.data?.message ||
-          "Failed to place order"
+        err.response?.data?.message || "Failed to place order"
       );
     } finally {
       setLoading(false);
@@ -47,7 +45,7 @@ const Checkout = () => {
 
   return (
     <div className="checkout-container">
-      <h2 className="checkout-title">Checkout</h2>
+      <h2>Checkout</h2>
 
       <div className="checkout-grid">
         {/* LEFT */}
@@ -74,12 +72,9 @@ const Checkout = () => {
             <span>₹{total}</span>
           </div>
 
-          {error && (
-            <p className="checkout-error">{error}</p>
-          )}
+          {error && <p className="checkout-error">{error}</p>}
 
           <button
-            className="checkout-btn"
             onClick={placeOrder}
             disabled={loading || cart.length === 0}
           >

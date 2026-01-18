@@ -28,6 +28,7 @@ public class OrderService {
         this.userRepo = userRepo;
     }
 
+    // 🛒 PLACE ORDER
     @Transactional
     public Order placeOrder(String email, PlaceOrderRequest request) {
 
@@ -37,46 +38,61 @@ public class OrderService {
         Order order = new Order();
         order.setUser(user);
 
-        List<OrderItem> orderItems = new ArrayList<>();
+        List<OrderItem> items = new ArrayList<>();
         double total = 0;
 
-        for (PlaceOrderRequest.Item item : request.getItems()) {
+        for (PlaceOrderRequest.Item reqItem : request.getItems()) {
 
-            Product product = productRepo.findById(item.getProductId())
+            Product product = productRepo.findById(reqItem.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            if (product.getStock() < item.getQuantity()) {
+            if (product.getStock() < reqItem.getQuantity()) {
                 throw new RuntimeException(
-                    "Not enough stock for " + product.getName()
+                        "Not enough stock for " + product.getName()
                 );
             }
 
             // 🔥 reduce stock
-            product.setStock(product.getStock() - item.getQuantity());
+            product.setStock(product.getStock() - reqItem.getQuantity());
             productRepo.save(product);
 
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProduct(product);
-            orderItem.setQuantity(item.getQuantity());
-            orderItem.setPrice(product.getPrice());
+            OrderItem item = new OrderItem();
+            item.setOrder(order);
+            item.setProduct(product);
+            item.setQuantity(reqItem.getQuantity());
+            item.setPrice(product.getPrice());
 
-            orderItems.add(orderItem);
-            total += product.getPrice() * item.getQuantity();
+            items.add(item);
+            total += product.getPrice() * reqItem.getQuantity();
         }
 
         order.setTotalAmount(total);
-        order.setItems(orderItems);
+        order.setItems(items);
 
         Order savedOrder = orderRepo.save(order);
-        itemRepo.saveAll(orderItems);
+        itemRepo.saveAll(items);
 
         return savedOrder;
     }
 
+    // 📦 USER ORDER HISTORY
     public List<Order> myOrders(String email) {
-        User user = userRepo.findByEmail(email)
-                .orElseThrow();
+        User user = userRepo.findByEmail(email).orElseThrow();
         return orderRepo.findByUserId(user.getId());
+    }
+
+    // 📄 ORDER DETAIL (USER)
+    public Order getOrderForUser(Long orderId, String email) {
+
+        User user = userRepo.findByEmail(email).orElseThrow();
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if (!order.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Unauthorized access");
+        }
+
+        return order;
     }
 }

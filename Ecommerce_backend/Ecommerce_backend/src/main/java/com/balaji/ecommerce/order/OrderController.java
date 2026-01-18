@@ -17,15 +17,29 @@ public class OrderController {
 
     // 🛒 PLACE ORDER
     @PostMapping
-    public Order placeOrder(Authentication auth,
-                            @RequestBody PlaceOrderRequest request) {
+    public OrderResponse placeOrder(Authentication auth,
+                                    @RequestBody PlaceOrderRequest request) {
 
-        return orderService.placeOrder(auth.getName(), request);
+        return new OrderResponse(
+                orderService.placeOrder(auth.getName(), request)
+        );
     }
 
-    // 📦 USER ORDERS
+    // 📦 USER ORDER HISTORY
     @GetMapping("/my")
-    public List<Order> myOrders(Authentication auth) {
-        return orderService.myOrders(auth.getName());
+    public List<OrderResponse> myOrders(Authentication auth) {
+        return orderService.myOrders(auth.getName())
+                .stream()
+                .map(OrderResponse::new)
+                .toList();
+    }
+
+    // 📄 ORDER DETAIL
+    @GetMapping("/{id}")
+    public OrderResponse orderDetail(@PathVariable Long id,
+                                     Authentication auth) {
+        return new OrderResponse(
+                orderService.getOrderForUser(id, auth.getName())
+        );
     }
 }

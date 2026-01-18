@@ -1,0 +1,106 @@
+/* ===== MY ORDERS PAGE ===== */
+.orders-page {
+  padding: 140px 60px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.orders-page h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 30px;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty {
+  padding-top: 180px;
+  text-align: center;
+  font-size: 16px;
+  color: #64748b;
+}
+
+/* ===== ORDER CARD ===== */
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== LEFT INFO ===== */
+.order-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #0f172a;
+}
+
+.order-card p {
+  font-size: 14px;
+  margin: 2px 0;
+  color: #475569;
+}
+
+/* ===== DATE ===== */
+.order-card .date {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* ===== TOTAL ===== */
+.order-card strong {
+  font-size: 18px;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+/* ===== STATUS BADGE ===== */
+.order-status {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Status colors */
+.status-PLACED {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-CONFIRMED {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-SHIPPED {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status-DELIVERED {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.status-CANCELLED {
+  background: #fee2e2;
+  color: #b91c1c;
+}
